@@ -19,6 +19,10 @@
 <script type="text/jsx" src="js/clicker.js"></script>
 <script type="text/jsx">
 
+var data = [
+  { author: 'david', text: 'dit is de comment tekst'},
+  { author: 'jan', text: 'dit is de tweede comment text'}
+];
 var CommentBox = React.createClass({
   render: function() {
     return (
@@ -63,14 +67,16 @@ var CommentBox = React.createClass({
   }
 });
 
+var converter = new Showdown.converter();
 var Comment = React.createClass({
   render: function() {
+    var rawMarkup = converter.makeHtml(this.props.children.toString());
     return (
       <div className="comment">
         <h2 className="commentAuthor">
           {this.props.author}
         </h2>
-        {this.props.children}
+        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
       </div>
     )
   }
