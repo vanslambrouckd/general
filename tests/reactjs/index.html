@@ -15,8 +15,53 @@
 <div id="content"></div>
 <div id="box"></div>
 <div id="helloworld"></div>
+<div id="blokCommentBox"></div>
 <script type="text/jsx" src="js/clicker.js"></script>
 <script type="text/jsx">
+
+var CommentBox = React.createClass({
+  render: function() {
+    return (
+      <div className="commentBox">
+        Hello world! im a CommentBox
+      </div>
+    );
+  }
+});
+
+var CommentList = React.createClass({
+  render: function() {
+    return (
+      <div className="commentList">
+        Hello, world, Im a CommentList.
+      </div>
+    );
+  }
+});
+
+var CommentForm = React.createClass({
+  render: function() {
+    return (
+      <div className="commentForm">
+        Hello, world Im a CommentForm
+      </div>
+    );
+  }
+});
+
+var CommentBox = React.createClass({
+  render: function() {
+    return (
+      <div className="commentBox">
+        <h1>Comments</h1>
+        <CommentList />
+        <CommentForm />
+      </div>
+    );
+  }
+});
+
+React.render(<CommentBox />, document.getElementById('blokCommentBox'));
 
 var BallmerPeakCalculator = React.createClass({
   render: function() {
