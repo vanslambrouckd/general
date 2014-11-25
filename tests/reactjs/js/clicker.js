@@ -13,4 +13,4 @@ var Clicker = React.createClass({
 	}
 });
 
-React.renderComponent(Clicker(), document.getElementById('content'));
+React.render(Clicker(), document.getElementById('content'));
