@@ -34,6 +34,8 @@ var CommentList = React.createClass({
     return (
       <div className="commentList">
         Hello, world, Im a CommentList.
+        <Comment author="David Vansl">Dit is een comment</Comment>
+        <Comment author="Jan">Dit is een tweede comment</Comment>
       </div>
     );
   }
@@ -60,6 +62,19 @@ var CommentBox = React.createClass({
     );
   }
 });
+
+var Comment = React.createClass({
+  render: function() {
+    return (
+      <div className="comment">
+        <h2 className="commentAuthor">
+          {this.props.author}
+        </h2>
+        {this.props.children}
+      </div>
+    )
+  }
+})
 
 React.render(<CommentBox />, document.getElementById('blokCommentBox'));
 
