@@ -18,12 +18,6 @@
 <div id="blokCommentBox"></div>
 <script type="text/jsx" src="js/clicker.js"></script>
 <script type="text/jsx">
-
-var data = [
-  { author: 'david', text: 'dit is de comment tekst'},
-  { author: 'jan', text: 'dit is de tweede comment text'}
-];
-
 var converter = new Showdown.converter();
 var Comment = React.createClass({
   render: function() {
@@ -78,9 +72,7 @@ var CommentBox = React.createClass({
     //wordt uitgevoerd bij instantieren van de component (1keer)
     return { data: [] };
   },
-  componentDidMount: function() {
-    /* functie componentDidMount wordt automatisch uitgevoerd door reactjs wanneer de component gerenderd wordt
-    */
+  loadCommentsFromServer: function() {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -91,6 +83,12 @@ var CommentBox = React.createClass({
         console.log(this.props.url, status, err.toString());
       }.bind(this)
     });
+  },
+  componentDidMount: function() {
+    /* functie componentDidMount wordt automatisch uitgevoerd door reactjs wanneer de component gerenderd wordt
+    */
+    this.loadCommentsFromServer();
+    setInterval(this.loadCommentsFromServer, this.props.pollInterval);    
   },
   render: function() {
     return (
@@ -105,7 +103,7 @@ var CommentBox = React.createClass({
 
 
 
-React.render(<CommentBox data={data} />, document.getElementById('blokCommentBox'));
+React.render(<CommentBox url="comments.json" pollInterval={2000} />, document.getElementById('blokCommentBox'));
 
 var BallmerPeakCalculator = React.createClass({
   render: function() {
