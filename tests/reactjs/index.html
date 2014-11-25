@@ -23,23 +23,37 @@ var data = [
   { author: 'david', text: 'dit is de comment tekst'},
   { author: 'jan', text: 'dit is de tweede comment text'}
 ];
-var CommentBox = React.createClass({
+
+var converter = new Showdown.converter();
+var Comment = React.createClass({
   render: function() {
+    var rawMarkup = converter.makeHtml(this.props.children.toString());
     return (
-      <div className="commentBox">
-        Hello world! im a CommentBox
+      <div className="comment">
+        <h2 className="commentAuthor">
+          {this.props.author}
+        </h2>
+        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
       </div>
-    );
+    )
   }
 });
 
 var CommentList = React.createClass({
   render: function() {
+    var commentNodes = this.props.data.map(function(comment) {
+        console.log(comment);
+        return (
+          <Comment author={comment.author}>
+            {comment.text}
+          </Comment>
+        );
+      }
+    );
+
     return (
       <div className="commentList">
-        Hello, world, Im a CommentList.
-        <Comment author="David Vansl">Dit is een comment</Comment>
-        <Comment author="Jan">Dit is een tweede comment</Comment>
+        {commentNodes}
       </div>
     );
   }
@@ -60,29 +74,16 @@ var CommentBox = React.createClass({
     return (
       <div className="commentBox">
         <h1>Comments</h1>
-        <CommentList />
+        <CommentList data={this.props.data} />
         <CommentForm />
       </div>
     );
   }
 });
 
-var converter = new Showdown.converter();
-var Comment = React.createClass({
-  render: function() {
-    var rawMarkup = converter.makeHtml(this.props.children.toString());
-    return (
-      <div className="comment">
-        <h2 className="commentAuthor">
-          {this.props.author}
-        </h2>
-        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
-      </div>
-    )
-  }
-})
 
-React.render(<CommentBox />, document.getElementById('blokCommentBox'));
+
+React.render(<CommentBox data={data} />, document.getElementById('blokCommentBox'));
 
 var BallmerPeakCalculator = React.createClass({
   render: function() {
