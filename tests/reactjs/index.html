@@ -58,10 +58,16 @@ var CommentForm = React.createClass({
     //tag ref gebruiken om een naam aan een child component te geven
     var author = this.refs.author.getDOMNode().value.trim();
     var text = this.refs.text.getDOMNode().value.trim();
+    //console.log(author+'-'+text);
     if (!text || !author) {
+      alert('leeg');
       return;
     }
 
+    var submitdata = { author: author, text: text};
+    //console.log('submitdata=');
+    //console.log(submitdata);
+    this.props.onCommentSubmit(submitdata);
     this.refs.author.getDOMNode().value = '';
     this.refs.text.getDOMNode().value = '';
     return;
@@ -91,21 +97,55 @@ var CommentBox = React.createClass({
       url: this.props.url,
       dataType: 'json',
       success: function(data) {
+        console.clear();
+        console.log('reload from server');
+        console.log(data);
+        //data = [{ author: 'davidfdsqfdsqfqs', 'text': 'testje'}];
+        //console.log(data);
+        
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
         console.log(this.props.url, status, err.toString());
       }.bind(this)
     });
+
+
   },
   componentDidMount: function() {
     /* functie componentDidMount wordt automatisch uitgevoerd door reactjs wanneer de component gerenderd wordt
     */
+    //alert('componentDidMount');
     this.loadCommentsFromServer();
     setInterval(this.loadCommentsFromServer, this.props.pollInterval);    
   },
   handleCommentSubmit: function(comment) {
     //submit to server
+    var comments = this.state.data;
+    var newComments = comments.concat([comment]);
+    newComments = [ { 'author': 'test', 'text': 'fdjqsklf' }];
+    this.setState({data: newComments});
+    console.log('comments=');
+    console.log(newComments);
+
+    this.setState({data: newComments});
+    //console.log(newComments);
+    //alert('handle comment submit');
+    //console.log(this.props);
+
+    //zou moeten werken maar dan moet je server side programmeren zodat json upgedate wordt
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'POST',
+      data: comment,
+      success: function(data) {
+        this.setState({ data: data });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(this.props.url, status, err.toString());
+      }.bind(this)
+    });
   },
   render: function() {
     return (
@@ -120,7 +160,7 @@ var CommentBox = React.createClass({
 
 
 
-React.render(<CommentBox url="comments.json" pollInterval={2000} />, document.getElementById('blokCommentBox'));
+React.render(<CommentBox url="comments.json" pollInterval={5000} />, document.getElementById('blokCommentBox'));
 
 var BallmerPeakCalculator = React.createClass({
   render: function() {
