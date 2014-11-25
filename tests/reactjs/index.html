@@ -36,7 +36,6 @@ var Comment = React.createClass({
 var CommentList = React.createClass({
   render: function() {
     var commentNodes = this.props.data.map(function(comment) {
-        console.log(comment);
         return (
           <Comment author={comment.author}>
             {comment.text}
@@ -54,11 +53,26 @@ var CommentList = React.createClass({
 });
 
 var CommentForm = React.createClass({
+  handleSubmit: function(event) {
+    event.preventDefault();
+    //tag ref gebruiken om een naam aan een child component te geven
+    var author = this.refs.author.getDOMNode().value.trim();
+    var text = this.refs.text.getDOMNode().value.trim();
+    if (!text || !author) {
+      return;
+    }
+
+    this.refs.author.getDOMNode().value = '';
+    this.refs.text.getDOMNode().value = '';
+    return;
+  },
   render: function() {
     return (
-      <div className="commentForm">
-        Hello, world Im a CommentForm
-      </div>
+      <form className="commentForm" onSubmit={this.handleSubmit}>
+        <input type="text" placeholder="Your name" ref="author" />
+        <input type="text" placeholder="Say something..." ref="text" />
+        <input type="submit" value="verstuur" />
+      </form>
     );
   }
 });
@@ -90,12 +104,15 @@ var CommentBox = React.createClass({
     this.loadCommentsFromServer();
     setInterval(this.loadCommentsFromServer, this.props.pollInterval);    
   },
+  handleCommentSubmit: function(comment) {
+    //submit to server
+  },
   render: function() {
     return (
       <div className="commentBox">
         <h1>Comments</h1>
         <CommentList data={this.state.data} />
-        <CommentForm />
+        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
       </div>
     );
   }
