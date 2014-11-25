@@ -69,12 +69,34 @@ var CommentForm = React.createClass({
   }
 });
 
+/*
+this.props.naam => props = niet veranderbaar (imutable)
+this.state => veranderbaar (ui moet de state updaten, data herbinden zodat ui in sync is met data)
+*/
 var CommentBox = React.createClass({
+  getInitialState: function() {
+    //wordt uitgevoerd bij instantieren van de component (1keer)
+    return { data: [] };
+  },
+  componentDidMount: function() {
+    /* functie componentDidMount wordt automatisch uitgevoerd door reactjs wanneer de component gerenderd wordt
+    */
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   render: function() {
     return (
       <div className="commentBox">
         <h1>Comments</h1>
-        <CommentList data={this.props.data} />
+        <CommentList data={this.state.data} />
         <CommentForm />
       </div>
     );
