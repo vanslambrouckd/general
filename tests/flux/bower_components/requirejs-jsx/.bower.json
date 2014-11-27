@@ -1,0 +1,14 @@
+{
+  "name": "requirejs-jsx",
+  "homepage": "https://github.com/thomasboyt/require-jsx",
+  "_release": "6526031b7d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "6526031b7d9e8d047da69b27335e9d78a1eb7473"
+  },
+  "_source": "git://github.com/thomasboyt/require-jsx.git",
+  "_target": "*",
+  "_originalSource": "requirejs-jsx",
+  "_direct": true
+}

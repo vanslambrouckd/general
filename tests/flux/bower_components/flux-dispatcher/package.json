@@ -1,0 +1,28 @@
+{
+  "name": "flux-dispatcher",
+  "version": "0.1.0",
+  "description": "Facebook flux simplest Dispatcher. Copied from reactjs todo example.",
+  "main": "Dispatcher.js",
+  "scripts": {
+    "test": "echo \"No test yet\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ericfong/flux-dispatcher.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "flux",
+    "dispatcher"
+  ],
+  "author": "Eric Fong <ericff@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericfong/flux-dispatcher/issues"
+  },
+  "homepage": "https://github.com/ericfong/flux-dispatcher/react",
+  "dependencies": {
+    "es6-promise": "^1.0.0"
+  }
+}
