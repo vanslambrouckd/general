@@ -1,3 +1,7 @@
+/*
+gebaseerd op
+http://scotch.io/tutorials/javascript/creating-a-simple-shopping-cart-with-react-js-and-flux
+*/
 requirejs.config({
 	paths: {
 		'react': 'react/react-with-addons',
@@ -49,7 +53,7 @@ require(['react', 'app'], function(React, app) {
 */
 
 require(['jsx!app'], function (app) {
-	console.log(app);
+	//console.log(app);
 });
 
 /*

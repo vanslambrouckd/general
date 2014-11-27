@@ -1,9 +1,18 @@
 define(function(require) {
 	var AppDispatcher = require('AppDispatcher');
+	//console.log(AppDispatcher);
 	var FluxCartConstants = require('FluxCartConstants');
 	
+	/*
+	de AppDispatcher zend signaal uit naar alle stores,
+	de stores die voor bepaald actionType geregistreerd hebben,
+	voeren dan code uit en emitten een change event terug naar de dispatcher,
+	zodat deze de view kan inlichten om up te daten
+	*/
 	var FluxCartActions = {
 		receiveProduct: function(data) {
+			//console.log(FluxCartConstants);
+			//console.log(data);
 			AppDispatcher.handleAction({
 				actionType: FluxCartConstants.RECEIVE_DATA,
 				data: data

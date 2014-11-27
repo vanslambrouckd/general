@@ -35,33 +35,23 @@ define(function(require) {
 http://scotch.io/tutorials/javascript/creating-a-simple-shopping-cart-with-react-js-and-flux
 */
 define(function(require) {
+	var _ = require('underscore');
+	
 	var React = require('react');
 	
 	var ProductData = require('ProductData');
 	var CartAPI = require('utils/CartAPI');
-	//var FluxCartApp = require('components/FluxCartApp.react');
+	var FluxCartApp = require('jsx!components/FluxCartApp.react');
 	
-	var FluxCartConstants = require('FluxCartConstants');
-	var ProductStore = require('stores/ProductStore');
-	var CartStore = require('stores/CartStore');
-	
-	//var FluxProduct = require('components/FluxProduct.react');	
 	ProductData.init();
-
-	var Test = React.createClass({
-		render: function() {
-			return (
-			  <div className="comment">
-				<h2 className="commentAuthor">
-				  Author
-				</h2>
-			  </div>
-			)
-		}
-	});
+	CartAPI.getProductData();
 	
 	React.render(
-	<Test />,
-	document.getElementById('testComponent')
+	<FluxCartApp />,
+	document.getElementById('app')
 	);
+		
+	//var FluxCartConstants = require('FluxCartConstants');
+	//var ProductStore = require('stores/ProductStore');
+	//var CartStore = require('stores/CartStore');	
 });

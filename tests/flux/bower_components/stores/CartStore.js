@@ -1,7 +1,7 @@
 define(function(require) {
 	var AppDispatcher = require('AppDispatcher');
 	var EventEmitter = require('EventEmitter/EventEmitter');
-	var FluxConstants = require('FluxCartConstants');
+	var FluxCartConstants = require('FluxCartConstants');
 	
 	var _products = {};
 	var _cartVisible = false;
@@ -57,6 +57,7 @@ define(function(require) {
 		
 		switch(action.actionType) {
 			case FluxCartConstants.CART_ADD:
+				console.log('CartStore => cart add');
 				add(action.sku, action.update);
 				break;
 			
