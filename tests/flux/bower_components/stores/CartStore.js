@@ -9,6 +9,7 @@ define(function(require) {
 	function add(sku, update) {
 		update.quantity = sku in _products ? _products[sku].quantity+1:1;
 		_products[sku] = _.extend({}, _products[sku], update);		
+		console.log(_products);
 	}
 	
 	function setCartVisible(cartVisible) {
@@ -62,6 +63,7 @@ define(function(require) {
 				break;
 			
 			case FluxCartConstants.CART_VISIBLE:
+				console.log('CartStore => CART_VISIBLE');
 				setCartVisible(action.cartVisible);
 				break;
 			
@@ -72,7 +74,7 @@ define(function(require) {
 			default:
 				return true;
 		}
-		
+				
 		CartStore.emitChange();
 		return true;
 	});

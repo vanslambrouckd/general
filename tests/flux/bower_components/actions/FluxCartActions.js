@@ -19,12 +19,14 @@ define(function(require) {
 			});
 		},
 		selectProduct: function(index) {
+			console.log('FluxCartActions => selectProduct');
 			AppDispatcher.handleAction({
 				actionType: FluxCartConstants.SELECT_PRODUCT,
 				data: index
 			});
 		},
 		addToCart: function(sku, update) {
+			console.log('FluxCartActions => addToCart');
 			AppDispatcher.handleAction({
 				actionType: FluxCartConstants.CART_ADD,
 				sku: sku,

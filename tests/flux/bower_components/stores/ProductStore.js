@@ -54,6 +54,7 @@ define(function(require) {
 				break;
 				
 			case FluxCartConstants.SELECT_PRODUCT:
+				console.log('ProductStore => SELECT_PRODUCT');
 				setSelected(action.data);
 				break;
 			
