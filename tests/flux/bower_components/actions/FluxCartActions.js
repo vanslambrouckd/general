@@ -1,8 +1,8 @@
 define(function(require) {
 	var AppDispatcher = require('AppDispatcher');
 	//console.log(AppDispatcher);
-	var FluxCartConstants = require('FluxCartConstants');
-	
+	var FluxCartConstants = require('../constants/FluxCartConstants');
+	console.log(FluxCartConstants);
 	/*
 	de AppDispatcher zend signaal uit naar alle stores,
 	de stores die voor bepaald actionType geregistreerd hebben,
@@ -40,6 +40,7 @@ define(function(require) {
 			});
 		},
 		updateCartVisible: function(cartVisible) {
+			console.log('FluxCartActions => update cart visible');
 			AppDispatcher.handleAction({
 				actionType: FluxCartConstants.CART_VISIBLE,
 				cartVisible: cartVisible

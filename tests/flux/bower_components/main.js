@@ -4,6 +4,7 @@ http://scotch.io/tutorials/javascript/creating-a-simple-shopping-cart-with-react
 */
 requirejs.config({
 	paths: {
+		'AppDispatcher': 'dispatcher/AppDispatcher',
 		'react': 'react/react-with-addons',
 		'JSXTransformer': 'react/JSXTransformer',
 		'jsx' : 'requirejs-react-jsx/jsx'

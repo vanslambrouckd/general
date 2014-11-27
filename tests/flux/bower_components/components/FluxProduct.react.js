@@ -29,7 +29,7 @@ define(function(require) {
 						<select onChange={this.selectVariant}>
 							{this.props.product.variants.map(function(variant, index) {
 								return (
-									<option value={index}>{variant.type}</option>
+									<option key={index} value={index}>{variant.type}</option>
 								)
 							})}
 						</select>

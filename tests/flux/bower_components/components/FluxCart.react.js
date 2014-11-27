@@ -11,7 +11,7 @@ define(function(require) {
 			var self = this;
 			var products = this.props.products;
 			return (
-				<div className="flux-cart">
+				<div className={"flux-cart " + (this.props.visible ? 'active' : '') }>
 					CART
 					<div className="mini-cart">
 						<button type="button" className="close-cart" onClick={this.closeCart}>x</button>

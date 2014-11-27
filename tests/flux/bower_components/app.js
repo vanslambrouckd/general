@@ -50,6 +50,7 @@ define(function(require) {
 	<FluxCartApp />,
 	document.getElementById('app')
 	);
+	
 		
 	//var FluxCartConstants = require('FluxCartConstants');
 	//var ProductStore = require('stores/ProductStore');

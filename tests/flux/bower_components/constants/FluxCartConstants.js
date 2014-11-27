@@ -1,4 +1,4 @@
-define('FluxCartConstants', ['require', 'keyMirror'], function(require, keyMirror) {
+define(['require', 'keyMirror'], function(require, keyMirror) {
 	console.log(keyMirror);
 	
 	return keyMirror({

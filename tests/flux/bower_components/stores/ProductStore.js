@@ -1,7 +1,7 @@
 define(function(require) {
 	var AppDispatcher = require('AppDispatcher');
 	var EventEmitter = require('EventEmitter/EventEmitter');
-	var FluxCartConstants = require('FluxCartConstants');
+	var FluxCartConstants = require('constants/FluxCartConstants');
 	/*
 	var _ = require('../underscore');
 	console.log(_);

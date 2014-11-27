@@ -10,7 +10,8 @@ define(function(require) {
 		return {
 			product: ProductStore.getProduct(),
 			selectedProduct: ProductStore.getSelected(),
-			cartItems: cartStore.getCartItems()
+			cartItems: cartStore.getCartItems(),
+			cartVisible: cartStore.getCartVisible()
 		}
 	}
 	
@@ -31,7 +32,7 @@ define(function(require) {
 		render: function() {
 			return (
 				<div className="flux-cart-app">
-					<FluxCart products={this.state.cartItems} />
+					<FluxCart products={this.state.cartItems} visible={this.state.visible} />
 					<FluxProduct product={this.state.product} selected={this.state.selectedProduct} />
 				</div>
 			)
