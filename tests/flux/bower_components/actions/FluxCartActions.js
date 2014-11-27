@@ -41,6 +41,7 @@ define(function(require) {
 		},
 		updateCartVisible: function(cartVisible) {
 			console.log('FluxCartActions => update cart visible');
+			console.log(cartVisible);
 			AppDispatcher.handleAction({
 				actionType: FluxCartConstants.CART_VISIBLE,
 				cartVisible: cartVisible

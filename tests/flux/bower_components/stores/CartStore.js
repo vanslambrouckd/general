@@ -64,6 +64,7 @@ define(function(require) {
 			
 			case FluxCartConstants.CART_VISIBLE:
 				console.log('CartStore => CART_VISIBLE');
+				console.log(action);
 				setCartVisible(action.cartVisible);
 				break;
 			

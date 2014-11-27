@@ -6,12 +6,13 @@ define(function(require) {
 	var FluxCart = require('jsx!./FluxCart.react');
 	
 	function getCartState() {
-		console.log(ProductStore.getProduct());		
 		return {
 			product: ProductStore.getProduct(),
 			selectedProduct: ProductStore.getSelected(),
 			cartItems: cartStore.getCartItems(),
-			cartVisible: cartStore.getCartVisible()
+			cartVisible: cartStore.getCartVisible(),
+			cartTotal: cartStore.getCartTotal(),
+			cartCount: cartStore.getCartCount()
 		}
 	}
 	
@@ -32,7 +33,7 @@ define(function(require) {
 		render: function() {
 			return (
 				<div className="flux-cart-app">
-					<FluxCart products={this.state.cartItems} visible={this.state.visible} />
+					<FluxCart products={this.state.cartItems} visible={this.state.visible} count={this.state.cartCount} total={this.state.cartTotal} />
 					<FluxProduct product={this.state.product} selected={this.state.selectedProduct} />
 				</div>
 			)

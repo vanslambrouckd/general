@@ -3,16 +3,22 @@ define(function(require) {
 	var FluxCartActions = require('../actions/FluxCartActions');
 	
 	var FluxCart = React.createClass({
+		openCart: function() {
+			FluxCartActions.updateCartVisible(true);
+		},
+		closeCart: function() {
+			FluxCartActions.updateCartVisible(false);
+		},		
 		removeFromCart: function(sku) {
 			FluxCartActions.removeFromCart(sku);
 			FluxCartActions.updateCartVisible(false);
 		},
 		render: function() {
+			console.log(this.props);
 			var self = this;
 			var products = this.props.products;
 			return (
 				<div className={"flux-cart " + (this.props.visible ? 'active' : '') }>
-					CART
 					<div className="mini-cart">
 						<button type="button" className="close-cart" onClick={this.closeCart}>x</button>
 						<ul>
@@ -27,7 +33,9 @@ define(function(require) {
 							)
 						})}
 						</ul>
+						<span className="total">Total: $({this.props.total})</span>
 					</div>
+					<button type="button" className="view-cart" onClick={this.openCart}>View Cart ({this.props.count})</button>
 				</div>
 			);
 		}
