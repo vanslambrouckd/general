@@ -5,7 +5,7 @@ function test23() {
 	var naam = 'david';
 	alert('dafdsfffdsdddfdvid');
 	alert('ja');
-	alert('fdsqdsqffdqfdssd');
+	alert('fdsqdsqfefdqfdssd');
 }
 
 var testje = "davidfdsqfd";
