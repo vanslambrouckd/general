@@ -1,3 +1,4 @@
+#tests van coffeescript in action.pdf ISBN 9781617290626
 naam = "davied"
 data = 
   X100:
@@ -115,3 +116,32 @@ class Human
 Human.rights = ['Life', 'Liberty', 'The pursuit of happiness']
 Human.rights = Human.rights.concat ['To party']
 #console.log Human.rights
+
+console.log ['yin', 'yang'].join 'and'
+
+#modify built in objects slecht: niet doen
+#Array::join = -> "Array::join was redefined"
+#console.log ['yin', 'yang'].join 'and'
+
+#modify built in objects slecht: niet doen
+#Date::daysFromToday = ->
+#  millisecondsInDay = 86400000
+#  today = new Date
+#  diff = @ - today
+#  Math.floor diff/millisecondsInDay
+
+#christmas = new Date "December 25, 2014, 00:00"
+#console.log christmas.daysFromToday()
+
+###
+ipv modify built in, maak extended class
+class ExtendedDate extends Date
+  daysFromToday: ->
+    millisecondsInDay = 86400000
+    today = new Date
+    diff = @ - today
+    Math.floor diff/millisecondsInDay
+  
+christmas = new ExtendedDate "December 25, 2014, 00:00"
+christmas.daysFromToday()
+###
