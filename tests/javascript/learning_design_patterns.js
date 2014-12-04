@@ -1,4 +1,8 @@
-//learning javascript design patterns ISBN 9781449331818
+/**********
+learning javascript design patterns ISBN 9781449331818
+http://addyosmani.com/resources/essentialjsdesignpatterns/book/
+**********/
+
 //the creational pattern
 var newObject = {};
 var newObject = Object.create(null);
@@ -196,5 +200,136 @@ http://jsfiddle.net/LxPrq/
 */
 
 /**********
-the mediator pattern
+the mediator pattern:
+all objects communicate through central point
+
+gelijkaardig aan pubsub, maar de hebt slechts 1 object publisht / subscribed:
+In the Observer pattern, there is no single object that encapsulates a constraint.
+The Mediator pattern centralizes rather than simply just distributing.
+**********/
+var mediator = (function() {
+  var channels = {};
+  
+  var subscribe = function(channel, fn) {
+	  if(!channels[channels]) channels[channel] = [];
+	  
+	  channels[channel].push({context: this, callback: fn});
+	  return this;
+  };
+  
+  var publish = function(channel) {
+	  if (!channels[channel]) return false;
+	  console.log('*****************');
+	  //The arguments object is an Array-like object corresponding to the arguments passed to a function.
+	  //arguments object is not an array, but can be converted to array: Array.prototype.slice.call(arguments);
+	  var args = Array.prototype.slice.call(arguments, 1); //remove first argument from the arguments
+	  for (var i = 0, l = channels[channel].length; i < l; i++) {
+		  var subscription = channels[channel][i];
+		  //apply the callback function to the subscription object (subscription.context), with the arguments
+		  subscription.callback.apply(subscription.context, args);
+	  }
+	
+	  return this;
+  };
+  
+  return {
+	  publish: publish,
+	  subscribe: subscribe,
+	  installTo: function(obj) {
+		  obj.subscribe = subscribe;
+		  obj.publish = publish;
+	  }
+  };
+})();
+
+//implementation:
+(function(m) {
+	var person = 'Luke';
+	m.subscribe('nameChange', function(arg) {
+		console.log(person);
+		person = arg;
+		console.log(person);
+	});
+	
+	m.publish('nameChange', 'David');
+})(mediator);
+
+
+/**********
+the prototype pattern
+prototype is blueprint for every object the constructor creates:
+easy way for inheritance
+child objects reference to base object functions (functions are not copied)
+**********/
+var vehiclePrototype = {
+	init: function(carModel) {
+		this.model= carModel;
+	},
+	getModel: function() {
+		console.log('this model of this vehicle is..' + this.model);
+	}
+};
+
+function vehicle(model) {
+	function F() {}; //constructor
+	F.prototype = vehiclePrototype; //set prototype to vehiclePrototype literal
+	
+	var f = new F();
+	f.init(model);
+	return f;
+}
+
+var car = vehicle('Fort escort');
+car.getModel();
+
+//example2:
+
+var myBluePrint = function MyBluePrintObject() {
+	this.someFunction = function someFunction() {
+		alert('some function');
+	};
+	
+	this.showMyName = function showMyName(name) {
+		console.log(this.name);
+	};
+};
+
+function MyObject() {
+	this.name = 'testing';
+}
+MyObject.prototype = new myBluePrint();
+
+var testObject = new MyObject();
+testObject.showMyName();
+
+/**********
+the command pattern
+**********/
+(function() {
+	var CarManager = {
+		requestInfo: function(model, id) {
+			return 'the information for ' + model + ' with ID ' + id + ' is foobar';
+		},
+		buyVehicle: function(model, id) {
+			return 'you have bought ' + model + ' with ID ' + id;
+		},
+		arrangeViewing: function(model, id) {
+			return 'you have booked a viewing of ' + model + ' ( ' + id + ')';
+		}
+	};
+	
+	CarManager.execute = function(command) {
+//		return CarManager[command.request](command.model, command.carId
+		var args = Array.prototype.slice.call(arguments, 1);
+		console.log(args);
+		return CarManager[command] && CarManager[command].apply(CarManager, args);
+	};
+	
+	console.log(CarManager.execute('requestInfo', 'ford', 2));
+	console.log(CarManager.execute('buyVehicle', 'volkswagen', 3));
+	
+})();
+
+/**********
+the facade pattern
 **********/
