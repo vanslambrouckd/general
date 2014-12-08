@@ -254,6 +254,17 @@ var mediator = (function() {
 	m.publish('nameChange', 'David');
 })(mediator);
 
+//pub sub via third party mediator
+var obj = { name: 'sam' };
+mediator.installTo(obj);
+obj.subscribe('nameChange', function(arg) {
+	console.log('thirdy party mediator');
+	console.log(this.name);
+	this.name = arg;
+	console.log(this.name);
+});
+
+obj.publish('nameChange', 'john');
 
 /**********
 the prototype pattern
@@ -282,8 +293,14 @@ function vehicle(model) {
 var car = vehicle('Fort escort');
 car.getModel();
 
-//example2:
+//example2 (better):
+var aCar = Object.create({
+	model: 'ford',
+	year: 2005 
+});
+console.log(aCar.model);
 
+//example3:
 var myBluePrint = function MyBluePrintObject() {
 	this.someFunction = function someFunction() {
 		alert('some function');
@@ -332,4 +349,100 @@ the command pattern
 
 /**********
 the facade pattern
+give a simpler api to a difficult underlying structure
+**********/
+(function() {
+	var addMyEvent = function(el, ev, fn) {
+		if (el.addEventListener) {
+			el.addEventListener(ev, fn, false);
+		} else if (el.attachEvent) {
+			el.attachEvent('on' + ev, fn);
+		} else {
+			el['on' + ev] = fn
+		}
+	};
+})();
+
+//example2
+var facadetest=(function() {
+	var _private = {
+		i:5,
+		get: function() {
+			console.log('current value = ' + this.i);
+		},
+		set: function(val) {
+			this.i = val;
+		},
+		run: function() {
+			console.log('running');
+		},
+		jump: function() {
+			console.log('jumping');
+		}
+	};
+	
+	return {
+		facade: function(args) {
+			_private.set(args.val);
+			_private.get();
+			if (args.run) {
+				_private.run();
+			}
+		}
+	}
+})();
+
+(function(f) {
+	f.facade({run: true, val: 10});
+})(facadetest);
+
+/**********
+the factory pattern
+**********/
+function Car(options) {
+	//constructor
+	this.doors = options.doors || 4;
+	this.state = options.state || "brand new";
+	this.color = options.color || "silver";
+}
+
+function Truck(options) {
+	//constructor
+	this.state = options.state || "used";
+	this.wheelSize = options.wheelSize || "large";
+	this.color = options.color || "blue";
+}
+
+//factory example
+function VehicleFactory() {}
+VehicleFactory.prototype.vehicleClass = Car; //default vehicle class is car
+VehicleFactory.prototype.createVehicle = function(options) {
+	switch(options.vehicleType) {
+		case "car":
+			this.vehicleClass = Car;
+			break;
+		case "truck":
+			this.vehicleClass = Truck
+			break;
+	}
+	return new this.vehicleClass(options);
+}
+
+//create carfactory
+var carFactory = new VehicleFactory();
+var car = carFactory.createVehicle({vehicleType: "car", color: "yellow", doors: 6 });
+console.log(car instanceof Car);
+
+//create truckfactory
+function TruckFactory() {}
+TruckFactory.prototype = new VehicleFactory();
+TruckFactory.prototype.vehicleClass = Truck;
+
+var truckFactory = new TruckFactory();
+var bigTruck = truckFactory.createVehicle({state: "omg bad", color: "pink", wheelSize: "so big"});
+
+console.log(bigTruck);
+
+/**********
+the mixin pattern
 **********/
